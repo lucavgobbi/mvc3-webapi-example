@@ -28,6 +28,7 @@
                         $.ajax({
                             method: "GET",
                             url: "/api/Customer",
+                            dataType: "json",
                             success: function (result) {
                                 options.success(result);
                             },
@@ -40,6 +41,7 @@
                         $.ajax({
                             method: "PUT",
                             url: "/api/Customer/" + options.data.Id,
+                            dataType: "json",
                             data: options.data,
                             success: function (result) {
                                 options.success(result);
@@ -53,6 +55,7 @@
                         $.ajax({
                             method: "POST",
                             url: "/api/Customer",
+                            dataType: "json",
                             data: options.data,
                             success: function (result) {
                                 options.success(result);
@@ -66,6 +69,7 @@
                         $.ajax({
                             method: "DELETE",
                             url: "/api/Customer/" + options.data.Id,
+                            dataType: "json",
                             success: function (result) {
                                 options.success(result);
                             },
@@ -91,9 +95,9 @@
                 dataSource: dataSource,
                 toolbar: ["create"],
                 columns: [
-                  { field: "Name" },
-                  { field: "Address" },
-                  { field: "PhoneNumber" },
+                  { field: "Name", title: "Name" },
+                  { field: "Address", title: "Address" },
+                  { field: "PhoneNumber", title: "Phone Number" },
                     { command: ["edit", "destroy"] }
                 ],
                 editable: "popup"

@@ -12,9 +12,20 @@ namespace MapStrat_Luca.Controllers
         // GET api/<controller>
         public IEnumerable<Models.Customer> Get()
         {
-            using (var db = new Models.MapStratDBEntities())
+            try
             {
-                return db.Customers.ToArray();
+                using (var db = new Models.MapStratDBEntities())
+                {
+                    return db.Customers.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent(ex.Message)
+                };
+                throw new HttpResponseException(resp);
             }
         }
 
@@ -37,6 +48,10 @@ namespace MapStrat_Luca.Controllers
                     }
                     return customer;
                 }
+            }
+            catch (HttpResponseException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
@@ -101,6 +116,10 @@ namespace MapStrat_Luca.Controllers
                     return customer;
                 }
             }
+            catch (HttpResponseException ex)
+            {
+                throw ex;
+            }
             catch (Exception ex)
             {
                 var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
@@ -133,6 +152,10 @@ namespace MapStrat_Luca.Controllers
 
                     db.SaveChanges();
                 }
+            }
+            catch (HttpResponseException ex)
+            {
+                throw ex;
             }
             catch (Exception ex)
             {
